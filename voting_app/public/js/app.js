@@ -1,20 +1,27 @@
 
 class ProductList extends React.Component {
   render() {
-    const product = Seed.products[0];
+    const products = Seed.products.sort((a,b) =>{b.votes - a.votes});
+    const productComponents = products.map((product) => (
+        <Product
+          key={'product-' + product.id}
+          id={product.id}
+          title={product.title}
+          description={product.description}
+          url={product.url}
+          votes={product.votes}
+          submitterAvatarUrl={product.submitterAvatarUrl}
+          productImageUrl={product.productImageUrl}
+        />
+    ));
     return (
-      <Product
-        id={product.id}
-        title={product.title}
-        description={product.description}
-        url={product.url}
-        votes={product.votes}
-        submitterAvatarUrl={product.submitterAvatarUrl}
-        productImageUrl={product.productImageUrl}
-      />
+      <div className='ui unstackable items'>
+        {productComponents}
+      </div>
     );
   }
 }
+
 class Product extends React.Component {
   render() {
     return (
@@ -49,9 +56,6 @@ class Product extends React.Component {
     );
   }
 }
-
-
-
 
 ReactDOM.render(
   <ProductList />,
