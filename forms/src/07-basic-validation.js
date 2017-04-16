@@ -38,11 +38,14 @@ module.exports = class extends React.Component {
   onInputChange = (evt) => {
     const fields = this.state.fields;
     fields[evt.target.name] = evt.target.value;
+    const fieldErrors = this.validate(fields);
+    this.setState({ fieldErrors });
     this.setState({ fields });
   };
 
   validate = (person) => {
     const errors = {};
+    if (person.name.length < 3) errors.name = 'Name must be four characters';
     if (!person.name) errors.name = 'Name Required';
     if (!person.email) errors.email = 'Email Required';
     if (person.email && !isEmail(person.email)) errors.email = 'Invalid Email';
@@ -78,7 +81,7 @@ module.exports = class extends React.Component {
 
           <br />
 
-          <input type='submit' />
+          <input type='submit' disabled={Object.keys(this.state.fieldErrors).length}/>
         </form>
 
         <div>

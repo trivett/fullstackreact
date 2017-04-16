@@ -5,7 +5,7 @@ document.body.appendChild(content);
 
 module.exports = class extends React.Component {
   static displayName = "04-basic-input";
-  state = { names: [] }; // <-- initial state
+  state = { names: ['name'] }; // <-- initial state
 
   onFormSubmit = (evt) => {
     const name = this.refs.name.value;
